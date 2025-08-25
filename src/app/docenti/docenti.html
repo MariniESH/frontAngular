@@ -1,0 +1,30 @@
+<router-outlet/>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Data di Nascita</th>
+        <th>Aggiorna</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (docente of docenti; track docente.id) {
+        <tr>
+          <td>{{docente.id}}</td>
+          <td>{{docente.nome}}</td>
+          <td>{{docente.cognome}}</td>
+          <td>{{docente.data}}</td>
+          <td><button><a>Seleziona</a></button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<button><a routerLink="new">Aggiungi docente</a></button>
+
+
