@@ -1,6 +1,6 @@
 export interface DocenteModel {
-  id: string;
-  nome: string;
-  cognome: string;
-  data: string;
+  id: string | null | undefined;
+  nome: string | null | undefined;
+  cognome: string | null | undefined;
+  data: string | null | undefined;
 }

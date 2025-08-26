@@ -1,1 +1,25 @@
-<p>new-docente works!</p>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+  <h2>Nuovo Docente</h2>
+
+  <div>
+    <div>
+      <label for="id">ID</label>
+      <input id="id" type="text" [formControl]="myForm.controls.id"/>
+    </div>
+    <div>
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" formControlName="nome" />
+    </div>
+    <div>
+      <label for="cognome">Cognome</label>
+      <input id="cognome" type="text" formControlName="cognome" />
+    </div>
+    <div>
+      <label for="data">Data</label>
+      <input id="data" type="date" formControlName="data" />
+    </div>
+    <button type="submit">Aggiungi</button>
+
+  </div>
+</form>

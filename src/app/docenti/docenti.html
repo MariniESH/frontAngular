@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (docente of docenti; track docente.id) {
+      @for (docente of docenti(); track docente.id) {
         <tr>
           <td>{{docente.id}}</td>
           <td>{{docente.nome}}</td>
