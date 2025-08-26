@@ -1,11 +1,10 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
-  <h2>Nuovo Docente</h2>
+  <h2>{{ isEdit ? 'Aggiorna Docente' : 'Nuovo Docente' }}</h2>
 
   <div>
     <div>
-      <label for="id">ID</label>
-      <input id="id" type="text" [formControl]="myForm.controls.id"/>
+      <input id="id" type="hidden" [formControl]="myForm.controls.id"/>
     </div>
     <div>
       <label for="nome">Nome</label>
@@ -19,7 +18,8 @@
       <label for="data">Data</label>
       <input id="data" type="date" formControlName="data" />
     </div>
-    <button type="submit">Aggiungi</button>
+    <button type="submit">{{ isEdit ? 'Aggiorna' : 'Aggiungi' }}</button>
+    <a [routerLink]="'/docenti'">Annulla</a>
 
   </div>
 </form>

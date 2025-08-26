@@ -1,18 +1,30 @@
 import {Injectable, signal} from '@angular/core';
 import {DocenteModel} from './docente.model';
-import {DOCENTI} from './docenti.data';
+import {DOCENTI_DUMMY} from './docenti.data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocenteService {
 
-  private docenti = signal<DocenteModel[]>(DOCENTI)
+  private docenti = signal<DocenteModel[]>(DOCENTI_DUMMY)
 
-  showDocenti = this.docenti.asReadonly();
+  // GET ALL
+  getDocenti = this.docenti.asReadonly();
 
 
+  // GET
+  getDocenteById(id: number): DocenteModel | undefined {
+    return this.docenti().find(docente => docente.id === id);
+  }
+
+  // CREATE
   addDocente(docente: DocenteModel) {
     this.docenti.update((oldDocenti) => [...oldDocenti, docente])
+  }
+
+  // UPDATE
+  updateDocente(docente: DocenteModel) {
+    this.docenti.update((oldDocenti) => oldDocenti.map(oldDoc => oldDoc.id === docente.id ? docente : oldDoc))
   }
 }

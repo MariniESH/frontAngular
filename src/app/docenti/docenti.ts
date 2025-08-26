@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {DocenteModel} from './docente.model';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {DOCENTI} from './docenti.data';
+import {DOCENTI_DUMMY} from './docenti.data';
 import {DocenteService} from './docente.service';
 
 @Component({
@@ -17,5 +17,5 @@ export class Docenti {
 
   private docenteService = inject(DocenteService);
 
-  docenti = this.docenteService.showDocenti;
+  docenti = this.docenteService.getDocenti;
 }

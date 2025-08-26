@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import {Nav} from './nav/nav';
 import {Docenti} from './docenti/docenti';
-import {NewDocente} from './docenti/new-docente/new-docente';
+import {Docente} from './docenti/docente/docente';
 
 export const routes: Routes = [
   {
@@ -14,7 +14,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'new',
-        component: NewDocente
+        component: Docente
+      },
+      {
+        path: ':docenteId',
+        component: Docente
       }
     ]
   }

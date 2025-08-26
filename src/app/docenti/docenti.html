@@ -18,13 +18,14 @@
           <td>{{docente.nome}}</td>
           <td>{{docente.cognome}}</td>
           <td>{{docente.data}}</td>
-          <td><button><a>Seleziona</a></button></td>
+          <td><button><a [routerLink]="['/docenti', docente.id]">Seleziona</a></button></td>
+          <td><button>Elimina</button></td>
         </tr>
       }
     </tbody>
   </table>
 </div>
 
-<button><a routerLink="new">Aggiungi docente</a></button>
+<button><a [routerLink]="['/docenti', 'new']">Aggiungi docente</a></button>
 
 
