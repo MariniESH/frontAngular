@@ -1,8 +1,10 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DocenteModel} from '../docente.model';
 import {DocenteService} from '../docente.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
+
+let idGenerator = 4;
 
 @Component({
   selector: 'app-docente',
@@ -18,41 +20,50 @@ export class Docente implements OnInit {
   private docenteService = inject(DocenteService);
   private route = inject(ActivatedRoute);
 
-
   // Mi serve per cambiare il layout della pagina HTML
   isEdit = false;
 
-
-  private idGenerator = 4;
-
   myForm = new FormGroup({
-    id: new FormControl(),
-    nome: new FormControl('', {
+    id: new FormControl<number | null>(null),
+    nome: new FormControl<string>('', {
       validators: [Validators.required],
     }),
-    cognome: new FormControl('', {
+    cognome: new FormControl<string>('', {
       validators: [Validators.required],
     }),
-    data: new FormControl('', {
+    data: new FormControl<string>('', {
       validators: [Validators.required],
     }),
   });
 
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('docenteId');
-    if (!idParam) {
-      return
+
+    // chiamato ogni volta che ci sono delle modifiche al param
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('docenteId');
+      this.loadDocente(idParam);
+    })
+  }
+
+  private loadDocente(idParam: string | null) {
+    if (!idParam || idParam === 'new') {
+      // create mode
+      this.isEdit = false;
+      this.myForm.reset({id: null, nome: '', cognome: '', data: ''});
+      return;
     }
 
     const id = +idParam;
     const docente = this.docenteService.getDocenteById(id);
 
     if (!docente) {
-      return
+      // optional: handle 404/unknown id
+      this.isEdit = false;
+      this.myForm.reset({id: null, nome: '', cognome: '', data: ''});
+      return;
     }
 
     this.isEdit = true;
-
     this.myForm.patchValue({
       id: docente.id,
       nome: docente.nome,
@@ -67,28 +78,25 @@ export class Docente implements OnInit {
       return;
     }
 
-    const enteredNome = this.myForm.value.nome;
-    const enteredCognome = this.myForm.value.cognome;
-    const enteredData = this.myForm.value.data;
+    const {id, nome, cognome, data} = this.myForm.value;
 
-    if (this.myForm.value.id === null) {
-
+    if (!id) {
 
       const nuovoDocente: DocenteModel = {
-        id: this.idGenerator++,
-        nome: enteredNome,
-        cognome: enteredCognome,
-        data: enteredData
+        id: idGenerator++,
+        nome: nome!,
+        cognome: cognome!,
+        data: data!
       };
 
       this.docenteService.addDocente(nuovoDocente);
     } else {
 
       const editedDocente: DocenteModel = {
-        id: this.myForm.value.id,
-        nome: enteredNome,
-        cognome: enteredCognome,
-        data: enteredData
+        id: id,
+        nome: nome!,
+        cognome: cognome!,
+        data: data!
       }
 
       this.docenteService.updateDocente(editedDocente);

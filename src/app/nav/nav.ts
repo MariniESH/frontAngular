@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink} from '@angular/router';
+import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-nav',
   imports: [
-    RouterLink
+    RouterLink,
+    Button
   ],
   templateUrl: './nav.html',
   styleUrl: './nav.css'

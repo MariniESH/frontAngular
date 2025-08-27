@@ -27,4 +27,9 @@ export class DocenteService {
   updateDocente(docente: DocenteModel) {
     this.docenti.update((oldDocenti) => oldDocenti.map(oldDoc => oldDoc.id === docente.id ? docente : oldDoc))
   }
+
+  // DELETE
+  deleteDocente(id: number) {
+    this.docenti.update((oldDocenti) => oldDocenti.filter((docente) => docente.id !== id))
+  }
 }

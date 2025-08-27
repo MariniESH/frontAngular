@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {Nav} from './nav/nav';
 import {Docenti} from './docenti/docenti';
 import {Docente} from './docenti/docente/docente';

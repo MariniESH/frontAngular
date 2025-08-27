@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 import {PrimeNG} from 'primeng/config';
-import {Button} from 'primeng/button';
-import {Docenti} from './docenti/docenti';
-import {Nav} from './nav/nav';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Button, Docenti, Nav],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
