@@ -1,0 +1,37 @@
+<router-outlet/>
+
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Cognome</th>
+      <th>Data di Nascita</th>
+      <th>Citta&grave;</th>
+      <th>Voto</th>
+      <th>Aggiorna</th>
+      <th>Cancella</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (alunno of alunni(); track alunno.id) {
+        <tr>
+          <td>{{alunno.id}}</td>
+          <td>{{alunno.nome}}</td>
+          <td>{{alunno.cognome}}</td>
+          <td>{{alunno.data}}</td>
+          <td>{{alunno.citta}}</td>
+          <td>{{alunno.voto}}</td>
+          <td><button [routerLink]="['/alunni', alunno.id]">Seleziona</button></td>
+          <td><button (click)="onCancel(alunno.id!)">Elimina</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<button [routerLink]="['/alunni', 'new']">Aggiungi alunno</button>
+<button [routerLink]="['']">Home</button>
+
+

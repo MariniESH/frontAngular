@@ -1,1 +1,29 @@
-<p>corso works!</p>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+  <h2>{{ isEdit ? 'Aggiorna Corso' : 'Nuovo Corso' }}</h2>
+
+  <div>
+    <div>
+      <input id="id" type="hidden" [formControl]="myForm.controls.id"/>
+    </div>
+    <div>
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" formControlName="nome" />
+    </div>
+    <div>
+      <label for="ore">Ore</label>
+      <input id="ore" type="number" formControlName="ore" />
+    </div>
+    <div>
+      <label for="anno">Anno</label>
+      <input id="anno" type="number" formControlName="anno" />
+    </div>
+    <div>
+      <label for="docenteId">Docente ID</label>
+      <input id="docenteId" type="number" formControlName="docenteId" />
+    </div>
+    <button type="submit">{{ isEdit ? 'Aggiorna' : 'Aggiungi' }}</button>
+    <button [routerLink]="'/corsi'">Annulla</button>
+
+  </div>
+</form>

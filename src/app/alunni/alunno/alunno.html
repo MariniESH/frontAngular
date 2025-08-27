@@ -1,0 +1,33 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+  <h2>{{ isEdit ? 'Aggiorna Alunno' : 'Nuovo Alunno' }}</h2>
+
+  <div>
+    <div>
+      <input id="id" type="hidden" [formControl]="myForm.controls.id"/>
+    </div>
+    <div>
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" formControlName="nome" />
+    </div>
+    <div>
+      <label for="cognome">Cognome</label>
+      <input id="cognome" type="text" formControlName="cognome" />
+    </div>
+    <div>
+      <label for="data">Data</label>
+      <input id="data" type="date" formControlName="data" />
+    </div>
+    <div>
+      <label for="citta">Citta&grave;</label>
+      <input id="citta" type="text" formControlName="citta" />
+    </div>
+    <div>
+      <label for="voto">Voto</label>
+      <input id="voto" type="number" step=".1" formControlName="voto" />
+    </div>
+    <button type="submit">{{ isEdit ? 'Aggiorna' : 'Aggiungi' }}</button>
+    <button [routerLink]="['alunni']">Annulla</button>
+
+  </div>
+</form>

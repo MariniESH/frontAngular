@@ -1,1 +1,35 @@
-<p>corsi works!</p>
+<router-outlet/>
+
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Ore</th>
+      <th>Anno</th>
+      <th>Docente ID</th>
+      <th>Aggiorna</th>
+      <th>Cancella</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (corso of corsi(); track corso.id) {
+        <tr>
+          <td>{{corso.id}}</td>
+          <td>{{corso.nome}}</td>
+          <td>{{corso.ore}}</td>
+          <td>{{corso.anno}}</td>
+          <td>{{corso.docenteId}}</td>
+          <td><button [routerLink]="['/corsi', corso.id]">Seleziona</button></td>
+          <td><button (click)="onCancel(corso.id!)">Elimina</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<button [routerLink]="['/corsi', 'new']">Aggiungi corso</button>
+<button [routerLink]="['']">Home</button>
+
+
