@@ -19,6 +19,7 @@ let idGenerator = 4;
 })
 export class Corso implements OnInit {
   private corsoService = inject(CorsoService);
+  private docenteService = inject(DocenteService);
   private route = inject(ActivatedRoute);
 
   // Mi serve per cambiare il layout della pagina HTML
@@ -35,8 +36,9 @@ export class Corso implements OnInit {
     anno: new FormControl<number | null>(null, {
       validators: [Validators.required],
     }),
-    docenteId: new FormControl<number | null>(null)
+    docente: new FormControl<DocenteModel | null>(null)
   });
+  docenti =  this.docenteService.getDocenti();
 
   ngOnInit(): void {
 
@@ -51,7 +53,7 @@ export class Corso implements OnInit {
     if (!idParam || idParam === 'new') {
       // create mode
       this.isEdit = false;
-      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docenteId: null});
+      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docente: null});
       return;
     }
 
@@ -61,27 +63,28 @@ export class Corso implements OnInit {
     if (!corso) {
       // optional: handle 404/unknown id
       this.isEdit = false;
-      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docenteId: null});
+      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docente: null});
       return;
     }
 
     this.isEdit = true;
+    console.log(corso.docente)
     this.myForm.patchValue({
       id: corso.id,
       nome: corso.nome,
       ore: corso.ore,
       anno: corso.anno,
-      docenteId: corso.docenteId,
+      docente: corso.docente
     });
   }
 
   onSubmit() {
-
     if (this.myForm.invalid) {
       return;
     }
+    const {id, nome, ore, anno, docente} = this.myForm.value;
 
-    const {id, nome, ore, anno, docenteId} = this.myForm.value;
+    console.log(docente)
 
     if (!id) {
 
@@ -90,7 +93,7 @@ export class Corso implements OnInit {
         nome: nome!,
         ore: ore,
         anno: anno,
-        docenteId: docenteId
+        docente: docente
       };
 
       this.corsoService.addCorso(nuovoCorso);
@@ -102,7 +105,7 @@ export class Corso implements OnInit {
         nome: nome!,
         ore: ore,
         anno: anno,
-        docenteId: docenteId
+        docente: docente
       }
 
       this.corsoService.updateCorso(editedCorso);

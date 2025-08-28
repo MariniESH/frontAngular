@@ -8,7 +8,7 @@
       <th>Nome</th>
       <th>Ore</th>
       <th>Anno</th>
-      <th>Docente ID</th>
+      <th>Docente</th>
       <th>Aggiorna</th>
       <th>Cancella</th>
     </tr>
@@ -20,7 +20,11 @@
           <td>{{corso.nome}}</td>
           <td>{{corso.ore}}</td>
           <td>{{corso.anno}}</td>
-          <td>{{corso.docenteId}}</td>
+          <td>@if (corso.docente === null || undefined) {
+            Nessun Docente
+          } @else {
+            {{corso.docente?.nome}} {{corso.docente?.cognome}}
+          }</td>
           <td><button [routerLink]="['/corsi', corso.id]">Seleziona</button></td>
           <td><button (click)="onCancel(corso.id!)">Elimina</button></td>
         </tr>
