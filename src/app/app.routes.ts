@@ -6,6 +6,7 @@ import {Corsi} from './corsi/corsi';
 import {Corso} from './corsi/corso/corso';
 import {Alunni} from './alunni/alunni';
 import {Alunno} from './alunni/alunno/alunno';
+import {Iscrizioni} from './alunni/iscrizioni/iscrizioni';
 
 export const routes: Routes = [
   {
@@ -51,6 +52,10 @@ export const routes: Routes = [
       {
         path: ':alunnoId',
         component: Alunno
+      },
+      {
+        path: ':alunnoId/iscrizioni',
+        component: Iscrizioni
       }
     ]
   }

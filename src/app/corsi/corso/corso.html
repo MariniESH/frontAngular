@@ -22,7 +22,7 @@
       <label for="docente">Docente</label>
       <select id="docente" formControlName="docente" >
         <option [ngValue]=null> Nessun Docente </option>
-        @for (docente of docenti; track docente.id) {
+        @for (docente of docenti(); track docente.id) {
           <option [ngValue]="docente"> {{ docente.nome}} {{docente.cognome}}</option>
         }
       </select>

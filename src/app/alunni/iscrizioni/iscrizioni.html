@@ -1,0 +1,30 @@
+<h2>Nome Alunno</h2>
+
+<h3>Lista Corsi</h3>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Ore</th>
+      <th>Docente</th>
+      <th>Iscritto</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (corso of corsi(); track corso.id) {
+        <tr>
+          <td>{{corso.id}}</td>
+          <td>{{corso.nome}}</td>
+          <td>{{corso.ore}}</td>
+          <td>{{corso.docente?.nome}} {{corso.docente?.cognome}}</td>
+          <td><input type="checkbox" formArrayName="iscrizione"/></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <button type="submit">Salva</button>
+</form>
+<button [routerLink]="['/alunni']">Indietro</button>
+

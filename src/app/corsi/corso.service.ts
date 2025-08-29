@@ -1,26 +1,26 @@
-import {computed, inject, Injectable, signal} from '@angular/core';
-import {CORSI_DUMMY} from './corsi.data';
+import {computed, inject, Injectable} from '@angular/core';
+import {CorsoRepository} from './corso-repository.service';
 import {CorsoModel} from './corso.model';
-import {DocenteService} from '../docenti/docente.service';
+import {DocenteRepository} from '../docenti/docente-repository.service';
 import {DocenteModel} from '../docenti/docente.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CorsoService {
-  private docenteService = inject(DocenteService)
 
-  private corsi = signal(CORSI_DUMMY);
+  private corsoRepository = inject(CorsoRepository);
+  private docenteRepository = inject(DocenteRepository);
 
-  // READ ALL
-  getCorsi = computed(() => this.corsi().map((corso) => {
+  getCorsi()  {
+  return computed(() => this.corsoRepository.getCorsi().map((corso) => {
     corso.docente = this.findDocente(corso);
     return corso
   }))
+  }
 
-  // READ SINGOLO
-  getCorsoById(id: number): CorsoModel | undefined {
-    const corso = this.corsi().find((corso) => corso.id === id)
+  getCorsoById(id: number) {
+    const corso = this.corsoRepository.getCorsoById(id)
     if (!corso) {
       return;
     } else {
@@ -29,19 +29,16 @@ export class CorsoService {
     }
   }
 
-  // CREATE
-  addCorso(nuovoCorso: CorsoModel) {
-    this.corsi.update((oldCorsi) => [...oldCorsi, nuovoCorso])
+  addCorso(corso: CorsoModel) {
+    this.corsoRepository.addCorso(corso);
   }
 
-  // UPDATE
-  updateCorso(editedCorso: CorsoModel) {
-    this.corsi.update((oldCorsi) => oldCorsi.map(oldCorso => oldCorso.id === editedCorso.id ? editedCorso : oldCorso))
+  updateCorso(corso: CorsoModel) {
+    this.corsoRepository.updateCorso(corso);
   }
 
-  // DELETE
-  deleteCorso(id: number) {
-    this.corsi.update((oldCorsi) => oldCorsi.filter((corso) => corso.id !== id))
+  deleteCorso(id:number) {
+    this.corsoRepository.deleteCorso(id);
   }
 
   private findDocente(corso: CorsoModel): DocenteModel | null | undefined {
@@ -50,10 +47,10 @@ export class CorsoService {
       docente = null
     } else {
       if (corso.docente.id !== null && corso.docente.id !== undefined) {
-        docente = this.docenteService.getDocenteById(corso.docente.id)
+        docente = this.docenteRepository.getDocenteById(corso.docente.id)
       }
     }
-
     return docente;
   }
+
 }

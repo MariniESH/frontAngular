@@ -10,6 +10,7 @@
       <th>Data di Nascita</th>
       <th>Citta&grave;</th>
       <th>Voto</th>
+      <th>Corsi</th>
       <th>Aggiorna</th>
       <th>Cancella</th>
     </tr>
@@ -23,6 +24,7 @@
           <td>{{alunno.data}}</td>
           <td>{{alunno.citta}}</td>
           <td>{{alunno.voto}}</td>
+          <td><button [routerLink]="['/alunni', alunno.id, 'iscrizioni']">Iscrizioni</button></td>
           <td><button [routerLink]="['/alunni', alunno.id]">Seleziona</button></td>
           <td><button (click)="onCancel(alunno.id!)">Elimina</button></td>
         </tr>

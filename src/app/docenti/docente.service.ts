@@ -1,35 +1,48 @@
-import {Injectable, signal} from '@angular/core';
+import {computed, inject, Injectable} from '@angular/core';
+import {DocenteRepository} from './docente-repository.service';
+import {CorsoRepository} from '../corsi/corso-repository.service';
+import {CorsoModel} from '../corsi/corso.model';
 import {DocenteModel} from './docente.model';
-import {DOCENTI_DUMMY} from './docenti.data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocenteService {
 
-  private docenti = signal<DocenteModel[]>(DOCENTI_DUMMY)
-
-  // GET ALL
-  getDocenti = this.docenti.asReadonly();
+  private corsoService = inject(CorsoRepository);
+  private docenteRepo = inject(DocenteRepository)
 
 
-  // GET
+  getDocenti() {
+    return computed(this.docenteRepo.getDocenti);
+  }
+
   getDocenteById(id: number): DocenteModel | undefined {
-    return this.docenti().find(docente => docente.id === id);
+    return this.docenteRepo.getDocenteById(id)
   }
 
-  // CREATE
   addDocente(docente: DocenteModel) {
-    this.docenti.update((oldDocenti) => [...oldDocenti, docente])
+    this.docenteRepo.addDocente(docente);
   }
 
-  // UPDATE
   updateDocente(docente: DocenteModel) {
-    this.docenti.update((oldDocenti) => oldDocenti.map(oldDoc => oldDoc.id === docente.id ? docente : oldDoc))
+    this.docenteRepo.updateDocente(docente);
   }
 
-  // DELETE
   deleteDocente(id: number) {
-    this.docenti.update((oldDocenti) => oldDocenti.filter((docente) => docente.id !== id))
+    const corsi = this.corsoService.findCorsiByDocentId(id);
+    console.log(corsi)
+    this.docenteRepo.deleteDocente(id);
   }
+
+  findCorsiByDocentId(docenteId: number):CorsoModel[] | null | undefined {
+    let corsi;
+    if (docenteId === null) {
+      corsi = null
+    } else {
+      corsi = this.corsoService.getCorsi().filter((corso) => corso.docente?.id === docenteId)
+    }
+    return corsi
+  }
+
 }

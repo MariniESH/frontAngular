@@ -1,10 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DocenteService} from '../../docenti/docente.service';
+import {DocenteRepository} from '../../docenti/docente-repository.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {DocenteModel} from '../../docenti/docente.model';
-import {CorsoService} from '../corso.service';
+import {CorsoRepository} from '../corso-repository.service';
 import {CorsoModel} from '../corso.model';
+import {CorsoService} from '../corso.service';
+import {DocenteService} from '../../docenti/docente.service';
 
 let idGenerator = 4;
 
@@ -68,7 +70,6 @@ export class Corso implements OnInit {
     }
 
     this.isEdit = true;
-    console.log(corso.docente)
     this.myForm.patchValue({
       id: corso.id,
       nome: corso.nome,
@@ -83,8 +84,6 @@ export class Corso implements OnInit {
       return;
     }
     const {id, nome, ore, anno, docente} = this.myForm.value;
-
-    console.log(docente)
 
     if (!id) {
 

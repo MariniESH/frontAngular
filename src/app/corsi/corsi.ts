@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
+import {CorsoRepository} from './corso-repository.service';
 import {CorsoService} from './corso.service';
 
 @Component({
@@ -14,7 +15,7 @@ import {CorsoService} from './corso.service';
 export class Corsi {
   private corsoService = inject(CorsoService);
 
-  corsi = this.corsoService.getCorsi;
+  corsi = this.corsoService.getCorsi();
 
   onCancel(id: number) {
     this.corsoService.deleteCorso(id);
