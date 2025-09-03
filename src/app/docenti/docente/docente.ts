@@ -1,7 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DocenteModel} from '../docente.model';
-import {DocenteRepository} from '../docente-repository.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {DocenteService} from '../docente.service';
 

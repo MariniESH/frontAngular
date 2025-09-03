@@ -1,6 +1,5 @@
 import {Component, inject} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {DocenteRepository} from './docente-repository.service';
 import {DocenteService} from './docente.service';
 
 @Component({

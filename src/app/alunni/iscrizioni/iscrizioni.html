@@ -1,7 +1,6 @@
-<h2>Nome Alunno</h2>
+<h2>{{ alunno?.nome }} {{ alunno?.cognome }}</h2>
 
 <h3>Lista Corsi</h3>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <table>
     <thead>
     <tr>
@@ -19,12 +18,14 @@
           <td>{{corso.nome}}</td>
           <td>{{corso.ore}}</td>
           <td>{{corso.docente?.nome}} {{corso.docente?.cognome}}</td>
-          <td><input type="checkbox" formArrayName="iscrizione"/></td>
+          <td><input [value]="corso.id"
+                     (change)="onChange($event)"
+                     type="checkbox"
+                      [checked]="isEnrolled(corso.id)"
+          /></td>
         </tr>
       }
     </tbody>
   </table>
-  <button type="submit">Salva</button>
-</form>
+  <button (click)="onSubmit()">Salva</button>
 <button [routerLink]="['/alunni']">Indietro</button>
-

@@ -89,18 +89,24 @@ export class Alunno implements OnInit {
         cognome: cognome!,
         data: data!,
         citta: citta!,
-        voto: voto
+        voto: voto,
+        corsi: []
       }
 
       this.alunnoService.addAlunno(nuovoAlunno)
     } else {
+      const oldAlunno = this.alunnoService.getAlunnoById(id);
+      if (!oldAlunno) {
+        return;
+      }
       const editedAlunno: AlunnoModel = {
         id: id,
         nome: nome!,
         cognome: cognome!,
         data: data!,
         citta: citta!,
-        voto: voto
+        voto: voto,
+        corsi: oldAlunno.corsi
       }
 
       this.alunnoService.updateAlunno(editedAlunno)

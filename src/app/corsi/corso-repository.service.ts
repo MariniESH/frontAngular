@@ -36,19 +36,6 @@ export class CorsoRepository {
     this.corsi.update((oldCorsi) => oldCorsi.filter((corso) => corso.id !== id))
   }
 
-  // private findDocente(corso: CorsoModel): DocenteModel | null | undefined {
-  //   let docente;
-  //   if (corso.docente === undefined || corso.docente === null) {
-  //     docente = null
-  //   } else {
-  //     if (corso.docente.id !== null && corso.docente.id !== undefined) {
-  //       docente = this.docenteRepository.getDocenteById(corso.docente.id)
-  //     }
-  //   }
-  //
-  //   return docente;
-  // }
-
   findCorsiByDocentId(docenteId: number):CorsoModel[] | null | undefined {
     let corsi;
     if (docenteId === null) {

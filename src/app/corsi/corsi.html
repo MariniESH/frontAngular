@@ -21,7 +21,7 @@
           <td>{{corso.ore}}</td>
           <td>{{corso.anno}}</td>
           <td>@if (corso.docente === null || undefined) {
-            Nessun Docente
+            <strong class="no-docente">Nessun Docente</strong>
           } @else {
             {{corso.docente?.nome}} {{corso.docente?.cognome}}
           }</td>

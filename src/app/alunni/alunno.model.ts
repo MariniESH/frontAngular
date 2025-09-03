@@ -1,3 +1,5 @@
+import {CorsoModel} from '../corsi/corso.model';
+
 export interface AlunnoModel {
   id: number | undefined | null;
   nome: string;
@@ -5,4 +7,5 @@ export interface AlunnoModel {
   data: string;
   citta: string;
   voto: number | null | undefined;
+  corsi?: CorsoModel[] | null | undefined;
 }

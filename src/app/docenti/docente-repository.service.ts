@@ -1,14 +1,12 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {DocenteModel} from './docente.model';
 import {DOCENTI_DUMMY} from './docenti.data';
-import {DocenteService} from './docente.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocenteRepository {
 
-  // private corsoService = inject(DocenteService)
   private docenti = signal<DocenteModel[]>(DOCENTI_DUMMY)
 
   // GET ALL

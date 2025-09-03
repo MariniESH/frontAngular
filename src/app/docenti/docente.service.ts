@@ -9,7 +9,7 @@ import {DocenteModel} from './docente.model';
 })
 export class DocenteService {
 
-  private corsoService = inject(CorsoRepository);
+  private corsoRepository = inject(CorsoRepository);
   private docenteRepo = inject(DocenteRepository)
 
 
@@ -30,19 +30,14 @@ export class DocenteService {
   }
 
   deleteDocente(id: number) {
-    const corsi = this.corsoService.findCorsiByDocentId(id);
-    console.log(corsi)
-    this.docenteRepo.deleteDocente(id);
-  }
-
-  findCorsiByDocentId(docenteId: number):CorsoModel[] | null | undefined {
-    let corsi;
-    if (docenteId === null) {
-      corsi = null
-    } else {
-      corsi = this.corsoService.getCorsi().filter((corso) => corso.docente?.id === docenteId)
+    const corsi = this.corsoRepository.findCorsiByDocentId(id);
+    if (corsi) {
+      corsi.map((corso) => {
+        corso.docente = null
+        this.corsoRepository.updateCorso(corso);
+      })
     }
-    return corsi
+    this.docenteRepo.deleteDocente(id);
   }
 
 }

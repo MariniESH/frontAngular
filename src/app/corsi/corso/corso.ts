@@ -38,7 +38,8 @@ export class Corso implements OnInit {
     anno: new FormControl<number | null>(null, {
       validators: [Validators.required],
     }),
-    docente: new FormControl<DocenteModel | null>(null)
+    docente: new FormControl<DocenteModel | null>(null),
+    iscritto: new FormControl<boolean | null>(null),
   });
   docenti =  this.docenteService.getDocenti();
 
@@ -55,7 +56,7 @@ export class Corso implements OnInit {
     if (!idParam || idParam === 'new') {
       // create mode
       this.isEdit = false;
-      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docente: null});
+      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docente: null, iscritto : null});
       return;
     }
 
@@ -65,7 +66,7 @@ export class Corso implements OnInit {
     if (!corso) {
       // optional: handle 404/unknown id
       this.isEdit = false;
-      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docente: null});
+      this.myForm.reset({id: null, nome: '', ore: null, anno: null, docente: null, iscritto: null});
       return;
     }
 
@@ -75,7 +76,8 @@ export class Corso implements OnInit {
       nome: corso.nome,
       ore: corso.ore,
       anno: corso.anno,
-      docente: corso.docente
+      docente: corso.docente,
+      iscritto: corso.iscritto
     });
   }
 
@@ -83,7 +85,7 @@ export class Corso implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    const {id, nome, ore, anno, docente} = this.myForm.value;
+    const {id, nome, ore, anno, docente, iscritto} = this.myForm.value;
 
     if (!id) {
 
@@ -92,7 +94,8 @@ export class Corso implements OnInit {
         nome: nome!,
         ore: ore,
         anno: anno,
-        docente: docente
+        docente: docente,
+        iscritto: iscritto
       };
 
       this.corsoService.addCorso(nuovoCorso);
@@ -104,7 +107,8 @@ export class Corso implements OnInit {
         nome: nome!,
         ore: ore,
         anno: anno,
-        docente: docente
+        docente: docente,
+        iscritto: iscritto
       }
 
       this.corsoService.updateCorso(editedCorso);
